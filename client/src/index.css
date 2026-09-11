@@ -1,11 +1,73 @@
-/* Temporary base — replaced with Tailwind v4 in Step 2 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+@import "tailwindcss";
+
+/* ————————————————————————————————
+   Design tokens — single source of truth.
+   Tailwind v4 turns each of these into utilities,
+   e.g. --color-ink → text-ink, bg-ink
+———————————————————————————————— */
+@theme {
+  /* Typography */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid display scale — grows with viewport, no breakpoint jumps */
+  --text-display-xl: clamp(2.75rem, 1.75rem + 5vw, 5.5rem);   /* hero */
+  --text-display-xl--line-height: 1.04;
+  --text-display-xl--letter-spacing: -0.035em;
+
+  --text-display-lg: clamp(2rem, 1.35rem + 3.2vw, 3.25rem);   /* section H2 */
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.03em;
+
+  --text-display-md: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);     /* H3 / card titles */
+  --text-display-md--line-height: 1.2;
+  --text-display-md--letter-spacing: -0.02em;
+
+  /* Color system */
+  --color-cream: #faf9f6;         /* base background (warm off-white) */
+  --color-ink: #111113;           /* primary text + dark bands */
+  --color-accent: #4f46e5;        /* indigo — 6.3:1 on white, 6:1 on cream (AA) */
+  --color-accent-strong: #4338ca; /* accent hover state */
+  --color-accent-soft: #eef2ff;   /* tinted indigo wash for tags/eyebrows */
+  --color-muted: #52525b;         /* secondary text — 7.3:1 on cream (AA) */
+  --color-line: #e8e6e0;          /* hairline borders on light surfaces */
+
+  /* Radii — exactly two, as decided in Phase 2 */
+  --radius-btn: 0.75rem;    /* controls */
+  --radius-card: 1.25rem;   /* cards & panels */
 }
 
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
+/* ————————————————————————————————
+   Base layer
+———————————————————————————————— */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* keeps anchor targets clear of the future sticky header */
+    scroll-padding-top: 5.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  /* Visible focus for keyboard users only — never on mouse click */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }
