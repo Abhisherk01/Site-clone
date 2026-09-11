@@ -19,8 +19,8 @@ export default function App() {
         <Container>
           <SectionHeading
             eyebrow="Step 4 complete"
-            title="Design primitives are live"
-            description="Container, SectionHeading, Button, Card and Reveal — everything our page sections will be composed from."
+            title="Dark theme is live"
+            description="Charcoal base, crisp white type, electric green accents — 60/30/10."
           />
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
@@ -46,6 +46,11 @@ export default function App() {
           </div>
         </Container>
       </main>
+
+      {/* 30% rhythm — the inverted white band */}
+      <section className="bg-paper py-16 text-center text-ink">
+        <p>Inverted paper band — reserved for section rhythm in later steps</p>
+      </section>
     </MotionConfig>
   );
 }

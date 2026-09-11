@@ -4,8 +4,11 @@ const BASE =
   "inline-flex cursor-pointer items-center justify-center gap-2 rounded-btn font-medium transition-all duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50";
 
 const VARIANTS = {
-  primary: "bg-accent text-white shadow-sm shadow-ink/10 hover:bg-accent-strong",
-  secondary: "border border-line bg-white text-ink hover:border-ink/25 hover:bg-ink/[0.03]",
+  // Green button = charcoal text (white on green fails contrast)
+  primary:
+    "bg-accent text-ink hover:bg-accent-bright hover:shadow-lg hover:shadow-accent/20",
+  secondary:
+    "border border-line bg-transparent text-paper hover:border-paper/25 hover:bg-paper/5",
 };
 
 const SIZES = {
