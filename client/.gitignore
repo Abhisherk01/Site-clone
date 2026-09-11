@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Database (added later, safe to ignore now)
+server/prisma/dev.db
+server/prisma/dev.db-journal
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.local
