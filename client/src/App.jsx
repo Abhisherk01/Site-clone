@@ -1,35 +1,51 @@
-import './index.css'
+import { MotionConfig } from "framer-motion";
+import { ArrowRight, Code2, Layers, PenTool } from "lucide-react";
+import Button from "./components/Button.jsx";
+import Card from "./components/Card.jsx";
+import Container from "./components/Container.jsx";
+import Reveal from "./components/Reveal.jsx";
+import SectionHeading from "./components/SectionHeading.jsx";
+
+const demoCards = [
+  { icon: PenTool, title: "Design", text: "Interfaces with hierarchy, restraint and intent." },
+  { icon: Code2, title: "Engineering", text: "Fast, accessible, maintainable products." },
+  { icon: Layers, title: "Strategy", text: "Decisions grounded in real user journeys." },
+];
 
 export default function App() {
   return (
-    <>
-      <main className="mx-auto max-w-3xl px-6 py-24 text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-accent">
-          Step 2 complete
-        </p>
-        <h1 className="mt-4 font-display text-display-lg">
-          Tailwind v4 is live
-        </h1>
-        <p className="mt-4 text-lg text-muted">
-          Design tokens, self-hosted fonts and base styles are wired up.
-        </p>
-        <button
-          type="button"
-          className="mt-8 rounded-btn bg-accent px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-accent-strong"
-        >
-          Accent button
-        </button>
-        <div className="mt-12 rounded-card border border-line bg-white p-8 text-left">
-          <h2 className="font-display text-display-md">Card preview</h2>
-          <p className="mt-2 text-muted">
-            Warm off-white canvas, hairline borders, exactly two radii.
-          </p>
-        </div>
-      </main>
+    <MotionConfig reducedMotion="user">
+      <main className="py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Step 4 complete"
+            title="Design primitives are live"
+            description="Container, SectionHeading, Button, Card and Reveal — everything our page sections will be composed from."
+          />
 
-      <section className="bg-ink py-16 text-center text-cream">
-        <p>Dark ink band — reserved for section rhythm in later steps</p>
-      </section>
-    </>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Button size="lg">Start a project</Button>
+            <Button variant="secondary" size="lg">
+              See our work <ArrowRight size={18} aria-hidden="true" />
+            </Button>
+            <Button variant="secondary" size="lg" disabled>
+              Disabled
+            </Button>
+          </div>
+
+          <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {demoCards.map(({ icon: Icon, title, text }, i) => (
+              <Reveal key={title} delay={i * 0.08} className="h-full">
+                <Card interactive className="h-full">
+                  <Icon className="size-8 text-accent" aria-hidden="true" />
+                  <h3 className="mt-5 font-display text-display-md">{title}</h3>
+                  <p className="mt-2 text-muted">{text}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </main>
+    </MotionConfig>
   );
 }
