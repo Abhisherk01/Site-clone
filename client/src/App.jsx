@@ -1,10 +1,11 @@
 import { MotionConfig } from "framer-motion";
 import Header from "./sections/Header.jsx";
+import Hero from "./sections/Hero.jsx";
+import Services from "./sections/Services.jsx";
 import Container from "./components/Container.jsx";
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
-  { id: "services", label: "Services" },
   { id: "work", label: "Work" },
   { id: "process", label: "Process" },
   { id: "testimonials", label: "Testimonials" },
@@ -17,13 +18,8 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <Header />
       <main>
-        <Container className="pb-24 pt-40 text-center">
-          <h1 className="font-display text-display-md">Step 5 — Header is live</h1>
-          <p className="mt-3 text-muted">
-            Placeholder sections below are the nav&apos;s anchor targets.
-          </p>
-        </Container>
-
+        <Hero />
+        <Services />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">

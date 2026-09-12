@@ -30,7 +30,7 @@ FAQ, CtaBanner, Contact, Footer.
 4b. ✅ Theme switched to dark charcoal / electric green
 5. ✅ Header: scroll-aware bar, desktop nav, mobile drawer, CTA, sign-in stub
 6. ✅ Hero: masked headline reveal, CTAs, meridian-horizon SVG, reduced-motion safe
-7. ⬜ Sections one by one (Services → Footer)
+7. 🔨 Sections in progress — Services ✅ · next: Work, Process/Stats, Testimonials, FAQ, CTA, Contact, Footer
 8. ⬜ Auth modal, mocked (login/register, validation, states)
 9. ⬜ Express POST /api/contact + Prisma Contact model (SQLite)
 10. ⬜ Integration → polish (a11y/SEO/perf) → deploy (Vercel) → final review
