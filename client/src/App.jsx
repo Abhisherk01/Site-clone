@@ -10,6 +10,7 @@ import Testimonials from "./sections/Testimonials.jsx";
 import Faq from "./sections/Faq.jsx";
 import CtaBanner from "./sections/CtaBanner.jsx";
 import Contact from "./sections/Contact.jsx";
+import Footer from "./sections/Footer.jsx";
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <ThemeProvider>
     <MotionConfig reducedMotion="user">
+      <div id="top">
       <Header />
       <main>
         <Hero />
@@ -33,6 +35,7 @@ export default function App() {
         <Faq />
         <CtaBanner />
         <Contact />
+        <Footer />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">
@@ -41,6 +44,7 @@ export default function App() {
           </section>
         ))}
       </main>
+      </div>
     </MotionConfig>
     </ThemeProvider>
   );
