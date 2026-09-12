@@ -2,11 +2,11 @@ import { MotionConfig } from "framer-motion";
 import Header from "./sections/Header.jsx";
 import Hero from "./sections/Hero.jsx";
 import Services from "./sections/Services.jsx";
+import Work from "./sections/Work.jsx";
 import Container from "./components/Container.jsx";
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
-  { id: "work", label: "Work" },
   { id: "process", label: "Process" },
   { id: "testimonials", label: "Testimonials" },
   { id: "faq", label: "FAQ" },
@@ -20,6 +20,7 @@ export default function App() {
       <main>
         <Hero />
         <Services />
+        <Work />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">
