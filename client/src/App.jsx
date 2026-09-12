@@ -4,7 +4,7 @@ import Hero from "./sections/Hero.jsx";
 import Services from "./sections/Services.jsx";
 import Work from "./sections/Work.jsx";
 import Container from "./components/Container.jsx";
-import Process from "./components/Process";
+import Process from "./sections/Process.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import Testimonials from "./sections/Testimonials.jsx"; 
 
