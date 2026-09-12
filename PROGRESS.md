@@ -29,10 +29,16 @@ muted #9BA69F. Tokens defined ONLY in client/src/index.css @theme.
 
 
 ## Structure
-
-client/ (React + Vite + Tailwind v4) · server/ (Express + Prisma + SQLite, later).
-Section order: Header, Hero, Services, Work, Process/Stats, Testimonials,
-FAQ, CtaBanner, Contact, Footer.
+Structure (verified from screenshot):
+client/src/components/ → primitives + shared: Button, Card, Container, CountUp,
+  Logo, Reveal, SectionHeading, ThemeToggle
+client/src/sections/ → page sections: Header, Hero, Services, Work, Process,
+  Testimonials (Process moved here in the structure-sync commit)
+client/src/context/ → ThemeContext.jsx (AuthModalContext joins in Step 14)
+client/src/data/ → hero, process, services, site, testimonials, work
+client/src/hooks/ → useScrolled, useScrollLock · client/src/lib/ → motion.js
+Imports: sections use ../components, ../data, ../hooks, ../lib; components use ./ and ../data.
+Git rule: stage from `git status --short` output, never from memory.
 
 ## Steps
 
