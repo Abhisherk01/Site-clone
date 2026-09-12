@@ -32,6 +32,8 @@
      so deep green (4.7:1). Light theme: overridden below → bright green. */
      --color-accent-inverted: #00804a;
 
+
+
   /* 30% — crisp white (type + inverted light band) */
   --color-paper: #f6f8f6;
   --color-ink: #0e100f;     /* text on green buttons & white bands */
@@ -47,6 +49,9 @@
   /* Radii */
   --radius-btn: 0.75rem;
   --radius-card: 1.25rem;
+
+    /* Form validation errors. 6.5:1 on surface (dark) / on white (light). */
+    --color-danger: #f87171;
 }
 
 /* ---- Light theme (Step 9b, Option C) ------------------------------
@@ -80,8 +85,16 @@
 
       /* band is ink here → band accent becomes the bright green (10.5:1 on ink) */
   --color-accent-inverted: #00dc82;
+
+  --color-danger: #b91c1c;
   }
 
+  /* Smooth in-page anchors (banner → #contact, nav links) for motion-safe users only. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 /* ————————————————————————————————
    Base layer
 ———————————————————————————————— */
