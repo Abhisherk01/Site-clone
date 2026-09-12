@@ -4,6 +4,8 @@ import Hero from "./sections/Hero.jsx";
 import Services from "./sections/Services.jsx";
 import Work from "./sections/Work.jsx";
 import Container from "./components/Container.jsx";
+import Process from "./components/Process";
+import { ThemeProvider } from "./context/ThemeContext.jsx";
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
@@ -15,12 +17,14 @@ const placeholderSections = [
 
 export default function App() {
   return (
+    <ThemeProvider>
     <MotionConfig reducedMotion="user">
       <Header />
       <main>
         <Hero />
         <Services />
         <Work />
+        <Process />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">
@@ -30,5 +34,6 @@ export default function App() {
         ))}
       </main>
     </MotionConfig>
+    </ThemeProvider>
   );
 }

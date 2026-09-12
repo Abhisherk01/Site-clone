@@ -8,6 +8,7 @@ import useScrolled from "../hooks/useScrolled.js";
 import Button from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
 import Logo from "../components/Logo.jsx";
+import ThemeToggle from "../components/ThemeToggle.jsx"; // NEW
 
 // Wired to the AuthModal in Step 14 — intentionally inert until then.
 const handleSignIn = () => {};
@@ -88,6 +89,8 @@ export default function Header() {
             >
               Sign in
             </button>
+            {/* NEW */}
+            <ThemeToggle />
             <Button as="a" href="#contact">
               Start a project
             </Button>
@@ -162,13 +165,17 @@ export default function Header() {
               <Button as="a" href="#contact" size="lg" onClick={closeMenu}>
                 Start a project <ArrowRight size={18} aria-hidden="true" />
               </Button>
-              <button
-                type="button"
-                onClick={handleSignIn}
-                className="cursor-pointer text-sm text-muted transition-colors hover:text-paper"
-              >
-                Sign in
-              </button>
+              {/* NEW: toggle + sign-in share a row under the CTA */}
+              <div className="flex items-center justify-between pt-2">
+                <ThemeToggle />
+                <button
+                  type="button"
+                  onClick={handleSignIn}
+                  className="cursor-pointer text-sm text-muted transition-colors hover:text-paper"
+                >
+                  Sign in
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

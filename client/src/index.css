@@ -27,6 +27,11 @@
   --color-surface: #161917; /* cards / elevated panels */
   --color-line: #262b27;    /* hairline borders on dark */
 
+    /* Accent for the inverted Process band. Flips OPPOSITE to accent, because the
+     band's surface is always the page's opposite. Dark theme: band = paper,
+     so deep green (4.7:1). Light theme: overridden below → bright green. */
+     --color-accent-inverted: #00804a;
+
   /* 30% — crisp white (type + inverted light band) */
   --color-paper: #f6f8f6;
   --color-ink: #0e100f;     /* text on green buttons & white bands */
@@ -43,6 +48,39 @@
   --radius-btn: 0.75rem;
   --radius-card: 1.25rem;
 }
+
+/* ---- Light theme (Step 9b, Option C) ------------------------------
+   Utilities reference var(--color-*), so overriding the variables under
+   [data-theme="light"] re-themes the site with zero markup changes.
+   The Process band stays inverted: paper/ink swap, page flips around it.
+   NOTE: keep @theme non-inline — `@theme inline` would bake values in
+   and break runtime theming. */
+
+   :root {
+    color-scheme: dark;
+  }
+  
+  [data-theme="light"] {
+    color-scheme: light;
+  
+    /* page flips to paper-white */
+    --color-base: #f6f8f6;
+    --color-surface: #ffffff;
+    --color-line: #dde4de;
+    --color-muted: #5a6660; /* 5.6:1 on base — old #9BA69F fails on white */
+  
+    /* the band inverts: ink surface, paper text */
+    --color-paper: #0e100f;
+    --color-ink: #f6f8f6;
+  
+    /* deep green: 4.7:1 as text on white AND as button bg with light ink text */
+    --color-accent: #00804a;
+    --color-accent-hover: #006b3d;
+    --color-accent-soft: #e3f4eb;
+
+      /* band is ink here → band accent becomes the bright green (10.5:1 on ink) */
+  --color-accent-inverted: #00dc82;
+  }
 
 /* ————————————————————————————————
    Base layer
