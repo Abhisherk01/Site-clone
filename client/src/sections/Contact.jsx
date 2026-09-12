@@ -13,49 +13,22 @@ import SectionHeading from "../components/SectionHeading.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Button from "../components/Button.jsx";
 import Card from "../components/Card.jsx";
+import Field, { inputClass } from "../components/Field.jsx";
+import { isValidEmail } from "../lib/validators.js";
 import { contactIntro, budgetOptions } from "../data/contact.js";
 import { submitContact } from "../lib/contact.js";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const FIELD_ORDER = ["name", "email", "company", "budget", "message"];
 const EMPTY_VALUES = { name: "", email: "", company: "", budget: "", message: "" };
 
 function validate(values) {
   const errors = {};
   if (values.name.trim().length < 2) errors.name = "Please enter your name.";
-  if (!EMAIL_RE.test(values.email.trim()))
-    errors.email = "Please enter a valid email address.";
+  if (!isValidEmail(values.email)) errors.email = "Please enter a valid email address.";
   if (values.message.trim().length < 10)
     errors.message =
       "Tell us a little more — a sentence or two helps us reply properly.";
   return errors;
-}
-
-const inputBase =
-  "w-full rounded-btn border bg-base px-4 py-3 text-base text-paper placeholder:text-muted transition-colors focus:outline-none focus:ring-2";
-const inputClass = (hasError) =>
-  `${inputBase} ${
-    hasError
-      ? "border-danger focus:ring-danger/50"
-      : "border-line focus:border-accent focus:ring-accent/40"
-  }`;
-
-// Label + slot + error message, so each field is declared once (DRY).
-function Field({ id, label, optional = false, error, children }) {
-  return (
-    <div>
-      <label htmlFor={id} className="text-sm font-medium text-paper">
-        {label}
-        {optional && <span className="ml-1 font-normal text-muted">· optional</span>}
-      </label>
-      <div className="mt-2">{children}</div>
-      {error && (
-        <p id={`${id}-error`} className="mt-2 text-sm text-danger">
-          {error}
-        </p>
-      )}
-    </div>
-  );
 }
 
 export default function Contact() {
