@@ -30,7 +30,11 @@
     /* Accent for the inverted Process band. Flips OPPOSITE to accent, because the
      band's surface is always the page's opposite. Dark theme: band = paper,
      so deep green (4.7:1). Light theme: overridden below → bright green. */
-     --color-accent-inverted: #00804a;
+  --color-accent-inverted: #00804a;
+
+       /* Constant dark scrim behind overlays. Deliberately NOT overridden in
+     [data-theme="light"] — unlike ink/base, it must stay dark in BOTH themes. */
+  --color-scrim: #0e100f;
 
 
 

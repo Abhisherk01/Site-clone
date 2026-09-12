@@ -8,15 +8,14 @@ import useScrolled from "../hooks/useScrolled.js";
 import Button from "../components/Button.jsx";
 import Container from "../components/Container.jsx";
 import Logo from "../components/Logo.jsx";
-import ThemeToggle from "../components/ThemeToggle.jsx"; // NEW
-
-// Wired to the AuthModal in Step 14 — intentionally inert until then.
-const handleSignIn = () => {};
+import ThemeToggle from "../components/ThemeToggle.jsx";
+import { useAuthModal } from "../context/AuthModalContext.jsx";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrolled = useScrolled();
   useScrollLock(menuOpen);
+  const { openAuth } = useAuthModal(); // INSIDE the component — hooks can't live at module level
 
   const toggleRef = useRef(null);
   const closeRef = useRef(null);
@@ -84,12 +83,11 @@ export default function Header() {
           <div className="hidden items-center gap-5 md:flex">
             <button
               type="button"
-              onClick={handleSignIn}
+              onClick={() => openAuth("signin")}
               className="cursor-pointer text-sm text-muted transition-colors hover:text-paper"
             >
               Sign in
             </button>
-            {/* NEW */}
             <ThemeToggle />
             <Button as="a" href="#contact">
               Start a project
@@ -165,12 +163,14 @@ export default function Header() {
               <Button as="a" href="#contact" size="lg" onClick={closeMenu}>
                 Start a project <ArrowRight size={18} aria-hidden="true" />
               </Button>
-              {/* NEW: toggle + sign-in share a row under the CTA */}
               <div className="flex items-center justify-between pt-2">
                 <ThemeToggle />
                 <button
                   type="button"
-                  onClick={handleSignIn}
+                  onClick={() => {
+                    closeMenu();
+                    openAuth("signin");
+                  }}
                   className="cursor-pointer text-sm text-muted transition-colors hover:text-paper"
                 >
                   Sign in

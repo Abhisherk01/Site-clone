@@ -11,6 +11,9 @@ import Faq from "./sections/Faq.jsx";
 import CtaBanner from "./sections/CtaBanner.jsx";
 import Contact from "./sections/Contact.jsx";
 import Footer from "./sections/Footer.jsx";
+import { AuthModalProvider } from "./context/AuthModalContext.jsx";
+import AuthModal from "./components/AuthModal.jsx";
+
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
@@ -23,6 +26,7 @@ const placeholderSections = [
 export default function App() {
   return (
     <ThemeProvider>
+      <AuthModalProvider>
     <MotionConfig reducedMotion="user">
       <div id="top">
       <Header />
@@ -46,6 +50,7 @@ export default function App() {
       </main>
       </div>
     </MotionConfig>
+    </AuthModalProvider>
     </ThemeProvider>
   );
 }
