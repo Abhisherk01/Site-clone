@@ -7,6 +7,7 @@ import Container from "./components/Container.jsx";
 import Process from "./sections/Process.jsx";
 import { ThemeProvider } from "./context/ThemeContext.jsx";
 import Testimonials from "./sections/Testimonials.jsx"; 
+import Faq from "./sections/Faq.jsx";
 
 // Temporary anchor targets — each is replaced by a real section in later steps.
 const placeholderSections = [
@@ -27,6 +28,7 @@ export default function App() {
         <Work />
         <Process />
         <Testimonials />
+        <Faq />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">
