@@ -16,19 +16,23 @@ muted #9BA69F. Tokens defined ONLY in client/src/index.css @theme.
 (fade + 24px rise, once, EASE [0.22,1,0.36,1]). MotionConfig reducedMotion="user".
 - Tailwind v4: prefer canonical utilities (z-60 not z-[60]; h-120 not h-[480px]).
 - State: local useState (+ AuthModalContext later). No router — one page, anchors:
+
 #services #work #process #testimonials #faq #contact.
+
 - Lint: oxlint (npm run lint inside client/). Conventional Commits.
 - GitHub: repo "Site-clone", remote origin. NEVER edit files on github.com
 (caused a non-fast-forward rejection once). Solo repo: force-with-lease OK.
 - Theme toggle IS in MVP (Option C). Default = stored choice → prefers-color-scheme →
-  dark. Persisted in localStorage["meridian-theme"]. Process/Stats stays the single
-  inverted band in BOTH themes. Light theme = token overrides ONLY in index.css; accent
-  text on light page surfaces = flipped --color-accent (#00804A); accent text on the
-  band = --color-accent-inverted (flips OPPOSITE to accent: deep in dark theme, bright
-  in light). RULE from 9b on: no raw hex/white in JSX — tokens only.
+dark. Persisted in localStorage["meridian-theme"]. Process/Stats stays the single
+inverted band in BOTH themes. Light theme = token overrides ONLY in index.css; accent
+text on light page surfaces = flipped --color-accent (#00804A); accent text on the
+band = --color-accent-inverted (flips OPPOSITE to accent: deep in dark theme, bright
+in light). RULE from 9b on: no raw hex/white in JSX — tokens only.
+
 
 
 ## Structure
+
 Structure (verified from screenshot):
 client/src/components/ → primitives + shared: Button, Card, Container, CountUp,
   Logo, Reveal, SectionHeading, ThemeToggle
@@ -58,9 +62,13 @@ Git rule: stage from `git status --short` output, never from memory.
     Header (desktop + drawer), localStorage + prefers-color-scheme default, no-flash
     script in index.html, SectionHeading tone="inverted" for the band using
     --color-accent-inverted. Re-QA steps 5–9 in light theme.
-10. ⬜ Testimonials · 11. ⬜ FAQ accordion · 12. ⬜ CTA banner + Contact form
-13. ⬜ Footer · 14. ⬜ Auth modal (mocked) · 15. ⬜ Express /api/contact + Prisma
-16. ⬜ Integration · 17. ⬜ Polish (a11y/SEO/perf) · 18. ⬜ Deploy (Vercel)
+10. ⬜ Testimonials · 
+
+1. ⬜ FAQ accordion ·
+2. ⬜ CTA banner + Contact form 
+3. ✅ Footer: brand + tagline, Site nav reusing navLinks from data/site.js (single     source with Header), Elsewhere text links (external, noopener, sr-only new-tab     note — lucide brand icons avoided, they're deprecated), email reused from     data/contact.js, © auto-year, back-to-top via #top anchor + CSS smooth scroll     (reduced-motion guarded). No dead "#" links — Privacy/Terms deferred to Step 17     unless real pages are wanted. 14. ⏳ NEXT: Auth modal (mocked) — AuthModalContext, Header sign-in wiring 15. ⬜ Express /api/contact + Prisma 16. ⬜ Integration · 17. ⬜ Polish (a11y/SEO/perf) · 18. ⬜ Deploy (Vercel)
+
+
 
 ## Component contracts worth remembering
 
@@ -76,4 +84,7 @@ Git rule: stage from `git status --short` output, never from memory.
 
 - Windows / PowerShell · Node 22 · VS Code + Tailwind IntelliSense + oxlint
 - .vscode/settings.json: css.lint.unknownAtRules ignore (Tailwind v4 at-rules)
-
+- PS 5.1 note: string bodies send as Latin-1 (en dash → "?") and native-exe args lose
+  embedded quotes — API tests use UTF-8 byte bodies ([char]0x2013 + GetBytes) and
+  try/catch ($_.ErrorDetails.Message) for 4xx checks. Browsers always send UTF-8;
+  real clients unaffected.
