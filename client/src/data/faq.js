@@ -1,4 +1,4 @@
-// Copy for the FAQ section (Step 11).
+
 
 export const faqItems = [
     {
