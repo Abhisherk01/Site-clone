@@ -19,10 +19,15 @@ function getInitialTheme() {
 }
 
 export function ThemeProvider({ children }) {
+
+  const THEME_COLORS = { dark: "#0e100f", light: "#f6f8f6" };
   const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", THEME_COLORS[theme]);
     try {
       window.localStorage.setItem(STORAGE_KEY, theme);
     } catch {
