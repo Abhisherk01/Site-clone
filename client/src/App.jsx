@@ -39,7 +39,6 @@ export default function App() {
         <Faq />
         <CtaBanner />
         <Contact />
-        <Footer />
         {placeholderSections.map(({ id, label }) => (
           <section key={id} id={id} className="border-t border-line/60">
             <Container className="flex min-h-[60vh] items-center justify-center">
@@ -48,7 +47,9 @@ export default function App() {
           </section>
         ))}
       </main>
+      <Footer />
       </div>
+      <AuthModal />
     </MotionConfig>
     </AuthModalProvider>
     </ThemeProvider>

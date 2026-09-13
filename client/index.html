@@ -3,17 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meridian — Digital Studio for Design & Engineering</title>
+
+    <title>Meridian — Digital studio for strategy, design &amp; engineering</title>
     <meta
       name="description"
-      content="Meridian is a digital studio crafting premium websites, apps, and digital products — strategy, design, and engineering under one roof."
+      content="Meridian ships products end to end — strategy, design and engineering under one roof. From first call to first release in weeks, not quarters."
     />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2300dc82'/%3E%3Cpath d='M8 24V8l8 10 8-10v16' fill='none' stroke='%230e100f' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+
+    <!-- Browser UI color. Initial value = dark theme; the no-flash script below
+         corrects it before first paint, ThemeContext keeps it in sync on toggle. -->
+    <meta name="theme-color" content="#0e100f" />
+
+    <!-- Open Graph / Twitter. TODO (Step 18): og:image (1200×630 PNG at the final
+         domain), og:url, and switch twitter:card to summary_large_image. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Meridian" />
+    <meta property="og:title" content="Meridian — Digital studio" />
+    <meta
+      property="og:description"
+      content="Strategy, design and engineering under one roof. From first call to first release in weeks, not quarters."
     />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- TODO (Step 18): replace meridian.example with the final domain.
+         Validate after editing: https://validator.schema.org -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Meridian",
+        "description": "Digital studio shipping products end to end — strategy, design and engineering under one roof.",
+        "url": "https://meridian.example",
+        "email": "hello@meridian.studio"
+      }
+    </script>
+
+    <!-- Theme no-flash: must match getInitialTheme() in src/context/ThemeContext.jsx.
+         Also sets theme-color so the browser UI is correct at first paint. -->
     <script>
-      // Theme no-flash: must match getInitialTheme() in src/context/ThemeContext.jsx.
       (function () {
         try {
           var stored = localStorage.getItem("meridian-theme");
@@ -24,6 +53,9 @@
                 ? "light"
                 : "dark";
           document.documentElement.setAttribute("data-theme", theme);
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", theme === "light" ? "#f6f8f6" : "#0e100f");
         } catch (e) {
           document.documentElement.setAttribute("data-theme", "dark");
         }
