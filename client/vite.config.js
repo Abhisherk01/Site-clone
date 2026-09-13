@@ -5,4 +5,20 @@ import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server:{
+    proxy:{
+      "/api": {
+        target:"http://localhost:3000",
+      },
+    },
+  },
+  preview: {
+    // `vite preview` does NOT inherit server.proxy — repeat it here so the
+    // production build (and Lighthouse runs) can reach the API. Needed for Step 18.
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+      },
+    },
+  },
 });
