@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+      "node": ">=20"
+    },
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.js",
     "start": "node --env-file=.env src/index.js",
@@ -11,10 +14,9 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "compression": "^1.8.2",
     "cors": "^2.8.6",
-    "express": "^5.2.1"
-  },
-  "devDependencies": {
+    "express": "^5.2.1",
     "prisma": "^6.19.3"
   }
 }
