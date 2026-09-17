@@ -78,8 +78,18 @@ export default function Contact() {
         message: values.message.trim(),
       });
       setStatus("success");
-    } catch {
-      setStatus("error");
+    } catch (error) {
+      if (error.fieldErrors) {
+        // Server rejected values (422) — surface them on the real fields,
+        // same UX as client-side errors.
+        setErrors(error.fieldErrors);
+        setStatus("idle");
+        const serverErrorField = FIELD_ORDER.find((field) => error.fieldErrors[field]);
+        document.getElementById(serverErrorField)?.focus();
+      } else {
+        // Network down or 5xx — the aria-live region announces it.
+        setStatus("error");
+      }
     }
   }
 
