@@ -2,10 +2,10 @@
     "name": "meridian",
     "private": true,
     "engines": {
-      "node": ">=20"
+        "node": ">=20"
     },
     "scripts": {
-      "build": "cd client && npm ci && npm run build && cd ../server && npm ci && npx prisma generate",
-      "start": "cd server && npx prisma migrate deploy && node src/index.js"
+        "build": "cd client && npm ci && npm run build && cd ../server && npm ci && npx prisma generate",
+        "start": "node --env-file-if-exists=.env src/index.js"
     }
-  }
+}
