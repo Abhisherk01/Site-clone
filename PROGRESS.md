@@ -28,6 +28,7 @@ inverted band in BOTH themes. Light theme = token overrides ONLY in index.css; a
 text on light page surfaces = flipped --color-accent (#00804A); accent text on the
 band = --color-accent-inverted (flips OPPOSITE to accent: deep in dark theme, bright
 in light). RULE from 9b on: no raw hex/white in JSX — tokens only.
+- 
 
 
 
@@ -65,8 +66,25 @@ Git rule: stage from `git status --short` output, never from memory.
 10. ⬜ Testimonials · 
 
 1. ⬜ FAQ accordion ·
-2. ⬜ CTA banner + Contact form 
-3. ✅ Footer: brand + tagline, Site nav reusing navLinks from data/site.js (single     source with Header), Elsewhere text links (external, noopener, sr-only new-tab     note — lucide brand icons avoided, they're deprecated), email reused from     data/contact.js, © auto-year, back-to-top via #top anchor + CSS smooth scroll     (reduced-motion guarded). No dead "#" links — Privacy/Terms deferred to Step 17     unless real pages are wanted. 14. ⏳ NEXT: Auth modal (mocked) — AuthModalContext, Header sign-in wiring 15. ⬜ Express /api/contact + Prisma 16. ⬜ Integration · 17. ⬜ Polish (a11y/SEO/perf) · 18. ⬜ Deploy (Vercel)
+2. ⬜ CTA banner + Contact form
+3. ✅ Footer: brand + tagline, Site nav reusing navLinks from data/site.js (single     source with Header), Elsewhere text links (external, noopener, sr-only new-tab     note — lucide brand icons avoided, they're deprecated), email reused from     data/contact.js, © auto-year, back-to-top via #top anchor + CSS smooth scroll     (reduced-motion guarded). No dead "#" links — Privacy/Terms deferred to Step 17     unless real pages are wanted.
+4. ⏳ NEXT: Auth modal (mocked) — AuthModalContext, Header sign-in wiring
+5. ⬜ Express /api/contact + Prisma
+6. ⬜ Integration ·
+7. ✅ Polish: SEO meta (title/description/OG/Twitter/JSON-LD — og:image + final
+  domain deferred to Step 18), SVG favicon (dark tile both themes), robots.txt,
+    theme-color synced in no-flash script + ThemeContext,  landmark +
+    skip link (first Tab stop), vite preview proxy. Audits: Lighthouse on preview
+    build (scores: ), npm audit reviewed — runtime (--omit=dev) clean,
+    dev-tooling vulns accepted, no blind fix; hardcoded-color sweep clean (SVG
+    artwork hexes = accepted brand exceptions). Prisma stays 6 (decision stands).
+8. Railway lesson 2: Railpack "could not determine how to build" + root tree listing
+  without package.json = the root manifest never made it into the DEPLOYED commit
+    (created locally, never committed — second untracked-file incident). Fix: root
+    package.json now owns build+start scripts (repo = deploy config; dashboard custom
+    commands cleared), root package-lock.json generated, .nvmrc=22. Builder is
+    Railpack → NIXPACKS_NODE_VERSION is inert (harmless). RULE: after any deploy-relevant
+    file change, `git ls-tree --name-only HEAD` must show it before blaming the platform.
 
 
 
@@ -85,6 +103,16 @@ Git rule: stage from `git status --short` output, never from memory.
 - Windows / PowerShell · Node 22 · VS Code + Tailwind IntelliSense + oxlint
 - .vscode/settings.json: css.lint.unknownAtRules ignore (Tailwind v4 at-rules)
 - PS 5.1 note: string bodies send as Latin-1 (en dash → "?") and native-exe args lose
-  embedded quotes — API tests use UTF-8 byte bodies ([char]0x2013 + GetBytes) and
-  try/catch ($_.ErrorDetails.Message) for 4xx checks. Browsers always send UTF-8;
-  real clients unaffected.
+embedded quotes — API tests use UTF-8 byte bodies ([char]0x2013 + GetBytes) and
+try/catch ($_.ErrorDetails.Message) for 4xx checks. Browsers always send UTF-8;
+real clients unaffected.
+- LESSON (3rd wrong-CWD incident): PowerShell defaults to C:\Usersuser> — always
+verify the prompt path before npm installs. Fontsource was installed to the HOME
+dir in Step 2; resolution "worked" via parent-dir walk-up, but Vite fs.allow
+403'd the woff2s → site silently ran fallback fonts for 14 steps. Fixed: proper
+install in client/, stray home node_modules removed. Checklist now includes a
+font-verification step.
+- - Windows: `npx prisma generate` fails with EPERM (rename of query_engine DLL) while
+    the dev server or Prisma Studio is running — the engine DLL is loaded/locked.
+    Order: stop node → generate → start. Cloud unaffected (no live process at build).
+
