@@ -12,7 +12,7 @@ const app = express();
 
 // Built client (client/dist) when present — i.e., in production deployments.
 // Locally without a build, the API runs alone and Vite's dev server fronts the UI.
-const clientDist = fileURLToPath(new URL("../client/dist", import.meta.url));
+const clientDist = fileURLToPath(new URL("../../client/dist", import.meta.url));
 const hasClientBuild = existsSync(path.join(clientDist, "index.html"));
 
 // Only Vite's dev/preview origins may call the API cross-origin during development.
