@@ -1,0 +1,56 @@
+# CI — build + lint on every PR and push to main.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            client/package-lock.json
+
+      - run: npm ci   # server deps; runs any postinstall — mirrors Railway
+
+      # Classic Prisma 6: no DATABASE_URL needed here (lesson 5 applies
+      # only to the deleted prisma.config.ts). Linux runner = no EPERM.
+      - run: npx prisma generate
+
+      - run: npm ci --prefix client   # drop if root build script installs client itself
+      - run: npm run build
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: client
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: client/package-lock.json
+
+      - run: npm ci
+      - run: npm run lint
