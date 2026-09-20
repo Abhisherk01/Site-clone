@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "engines": {
-      "node": ">=20"
-    },
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "node --watch --env-file=.env src/index.js",
     "start": "node --env-file-if-exists=.env src/index.js",
     "db:migrate": "prisma migrate dev",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "test": "vitest run"
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
@@ -18,5 +19,9 @@
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "prisma": "^6.19.3"
+  },
+  "devDependencies": {
+    "supertest": "^7.2.2",
+    "vitest": "^4.1.11"
   }
 }
