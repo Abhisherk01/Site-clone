@@ -3,6 +3,10 @@
 Source of truth for build state. Starting a fresh chat? Paste this file
 and say: "continue at Step N".
 
+# PROJECT STATUS:
+MVP SHIPPED (18/18) · DevOps phase: 19-20 ✅ · next: 21 (railway.toml)
+Lighthouse: recorded by CI from Step 24.
+
 ## Locked decisions
 
 - Brand: Meridian (digital studio). All copy lives in client/src/data/.
@@ -32,7 +36,6 @@ in light). RULE from 9b on: no raw hex/white in JSX — tokens only.
 
 
 ## Structure
-
 Structure (verified from screenshot):
 client/src/components/ → primitives + shared: Button, Card, Container, CountUp,
   Logo, Reveal, SectionHeading, ThemeToggle
@@ -62,11 +65,25 @@ Git rule: stage from `git status --short` output, never from memory.
     Header (desktop + drawer), localStorage + prefers-color-scheme default, no-flash
     script in index.html, SectionHeading tone="inverted" for the band using
     --color-accent-inverted. Re-QA steps 5–9 in light theme.
-10. ⬜ Testimonials · 
+10. ✅ strip trailing .
 
-1. ⬜ FAQ accordion ·
-2. ⬜ CTA banner + Contact form 
-3. ✅ Footer: brand + tagline, Site nav reusing navLinks from data/site.js (single     source with Header), Elsewhere text links (external, noopener, sr-only new-tab     note — lucide brand icons avoided, they're deprecated), email reused from     data/contact.js, © auto-year, back-to-top via #top anchor + CSS smooth scroll     (reduced-motion guarded). No dead "#" links — Privacy/Terms deferred to Step 17     unless real pages are wanted. 14. ⏳ NEXT: Auth modal (mocked) — AuthModalContext, Header sign-in wiring 15. ⬜ Express /api/contact + Prisma 16. ⬜ Integration · 17. ⬜ Polish (a11y/SEO/perf) · 18. ⬜ Deploy (Vercel)
+11. ✅ strip trailing .
+12. ✅ strip trailing . + Contact form 
+13. ✅ Footer: brand + tagline, Site nav reusing navLinks from data/site.js (single     source with Header), Elsewhere text links (external, noopener, sr-only new-tab     note — lucide brand icons avoided, they're deprecated), email reused from     data/contact.js, © auto-year, back-to-top via #top anchor + CSS smooth scroll     (reduced-motion guarded). No dead "#" links — Privacy/Terms deferred to Step 17     unless real pages are wanted. 14. ⏳ NEXT: Auth modal (mocked) — AuthModalContext, Header sign-in wiring 15.✅ strip trailing . ⬜ Express /api/contact + Prisma 16.✅ strip trailing . 17. ⬜ Polish (a11y/SEO/perf) · 18. ⬜ Deploy (Vercel)
+19. ✅ CI pipeline: .github/workflows/ci.yml — build (3-package install: root +
+    client + server; prisma generate in server/), lint (client oxlint), test
+    (server vitest). Node 22 via .nvmrc; npm cache keyed on all three lockfiles;
+    concurrency cancel. Runs on PRs + pushes to main; advisory (no branch
+    protection yet). KNOWN SLACK: build job re-installs inside root build script —
+    trim on next CI touch.
+20. ✅ API smoke tests (server/ package): vitest + supertest — GET /api/health 200 ·
+    POST /api/contact 201 + row persisted · invalid → 422 + nothing persisted.
+    app/listen split: server/src/app.js exports app; index.js = process only.
+    globalSetup runs real `prisma migrate deploy` vs throwaway
+    server/prisma/test.db, deleted fresh each run. LAYOUT TRUTH: 3-package
+    monorepo — root is a dep-free orchestrator; server has own package.json +
+    lockfile. OPEN: root start script says src/index.js but root has no src/ →
+    Railway root-dir question is Step 21 fact-find #1.
 
 
 
@@ -88,3 +105,17 @@ Git rule: stage from `git status --short` output, never from memory.
   embedded quotes — API tests use UTF-8 byte bodies ([char]0x2013 + GetBytes) and
   try/catch ($_.ErrorDetails.Message) for 4xx checks. Browsers always send UTF-8;
   real clients unaffected.
+- RULE 0 (session start): Set-Location to repo root → git rev-parse --show-toplevel
+  must print that path → git status --short --branch + git log --oneline -3.
+  Folder names lie — 5 wrong-CWD incidents; "meridian" was a stray with no .git.
+- INCIDENT #6 (index.lock race): batched paste of add+3 commits collided with VS
+  Code's git refresh; one commit swallowed 9 files under a refactor-only label.
+  RULE: read-only getters may paste as a block; index-touching git (add/commit/
+  amend/reset) = one command, one Enter, output before the next.
+- INCIDENT #7 (twin commits): amend+push ran outside pasted history (lossy
+  multi-command pastes) → local parked on stale twin, push rejected (2nd
+  non-fast-forward). Fix: abort the auto-started merge (generic push-hint did it),
+  verify remote-only commits via git log HEAD..MERGE_HEAD, reset --hard to remote.
+  LESSON: after push rejection, fetch-inspect-decide — never blind force, never
+  blind pull.
+- PS 5.1: commit messages ASCII-only (em dashes mangle in history).
