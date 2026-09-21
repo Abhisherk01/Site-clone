@@ -1,0 +1,19 @@
+# Railway config-as-code -- lives in server/ because the service's Root
+# Directory is server/ (proven: runtime cwd resolves prisma/schema.prisma).
+# Fields here LOCK the dashboard settings and take precedence over them.
+"$schema" = "https://railway.app/railway.schema.json"
+
+[deploy]
+# Deploy only turns Success when /api/health returns 2xx from Railway's probe.
+# A crash loop now FAILS the deploy (lesson-3 detector) instead of looping.
+healthcheckPath = "/api/health"
+healthcheckTimeout = 100   # headroom for migrate deploy on cold boot
+
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Custom start commands run from the REPO ROOT, not the Root Directory
+# (proven: the dashboard cmd needs `cd server` and boots clean). Kept
+# verbatim; tail swapped to `npm start` so the hardened script (lesson 3)
+# stays the single source of truth for the node invocation.
+startCommand = "cd server && npx prisma migrate deploy && npm start"
