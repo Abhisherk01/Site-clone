@@ -6,6 +6,7 @@
 [deploy]
 # Deploy only turns Success when /api/health returns 2xx from Railway's probe.
 # A crash loop now FAILS the deploy (lesson-3 detector) instead of looping.
+# cd server && npx prisma migrate deploy && npm start
 healthcheckPath = "/api/health"
 healthcheckTimeout = 100   # headroom for migrate deploy on cold boot
 
